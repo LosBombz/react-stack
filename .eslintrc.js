@@ -12,6 +12,7 @@ module.exports = {
         "no-unused-vars": 0,
         "semi": 0,
         "no-useless-constructor": 0,
-        "arrow-spacing": 0
+        "arrow-spacing": 0,
+        "no-new": 0
     }
 };
