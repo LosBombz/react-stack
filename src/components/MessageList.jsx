@@ -1,5 +1,8 @@
 import React from 'react';
 import Message from './Message.jsx';
+import mui from 'material-ui';
+
+const {Card, List} = mui;
 
 class MessageList extends React.Component {
     constructor(props) {
@@ -18,7 +21,13 @@ class MessageList extends React.Component {
             return <Message message={message} />;
         });
 
-        return <div>{messageNodes}</div>;
+        return (
+            <Card className="card message-list">
+                <List className="list">
+                    {messageNodes}
+                </List>
+            </Card>
+        );
     }
 }
 

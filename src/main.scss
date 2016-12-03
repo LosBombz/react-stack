@@ -1,5 +1,43 @@
-$color: #eee;
+
 
 body {
-    background: $color;
+    margin: 0;
+}
+
+.page-container {
+    padding: 30px;
+}
+
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 1200px;
+    width: 100%;
+    margin: 30px auto 0 auto;
+
+    .channel-list {
+        flex-grow: 2;
+    }
+
+    .message-list {
+        flex-grow: 1;
+        margin: 0 0 0 30px;
+    }
+}
+
+.message-box {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 30px;
+
+    textarea {
+        width: 100%;
+        border-color: #d0d0d0;
+        resize: none;
+        border-radius: 3px;
+        min-height: 50px;
+        color: #555555;
+        font-size: 14px;
+        outline: auto 0;
+    }
 }
