@@ -1,22 +1,13 @@
 import React from 'react';
+import MessageList from './MessageList.jsx';
 
 class App extends React.Component {
     constructor() {
         super();
-        this.state = {
-            messages: [
-                'yo dawg, how are you?',
-                'I am fine, and you?'
-            ]
-        };
     }
 
     render() {
-        var messageNodes = this.state.messages.map((message)=> {
-            return <div>{message}</div>;
-        });
-
-        return <div>{messageNodes}</div>;
+        return <MessageList />;
     }
 }
 
