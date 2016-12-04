@@ -13,6 +13,7 @@ module.exports = {
         "semi": 0,
         "no-useless-constructor": 0,
         "arrow-spacing": 0,
-        "no-new": 0
+        "no-new": 0,
+        "no-trailing-spaces": 0
     }
 };

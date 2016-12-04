@@ -22,26 +22,21 @@ class MessageList extends React.Component {
             messagingSenderId: '686541059449'
         });
 
-        // this.firebaseRef.once('value', (dataSnapshot)=> {
-        //     let messages = dataSnapshot.val();
-        //     console.log(messages);
-        //     this.setState({
-        //         messages: messages
-        //     });
-        // });
-
         this.database = this.firebaseRef.database();
 
         this.database.ref('/messages').once('value').then((snapshot)=>{
+            let messages = [];
+
             snapshot.forEach((childSnapshot)=> {
                 let key = childSnapshot.key;
                 let val = childSnapshot.val().message;
 
-                this.state.messages.push(val);
-
-                console.log(key, val);
+                messages.push(val);
             });
-            // console.log(snapshot.val());
+
+            this.setState({
+                messages: messages
+            });
         });
     }
 
