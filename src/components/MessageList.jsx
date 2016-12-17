@@ -4,6 +4,16 @@ import mui from 'material-ui';
 import firebase from 'firebase';
 import _ from 'lodash';
 
+window.firebaseApp = window.firebaseApp || firebase.initializeApp({
+    apiKey: 'AIzaSyCf4wSQwi3kmU1SM7r0BLjzHo2FpXHF5iQ',
+    authDomain: 'react-stack-17023.firebaseapp.com',
+    databaseURL: 'https://react-stack-17023.firebaseio.com',
+    storageBucket: 'react-stack-17023.appspot.com',
+    messagingSenderId: '686541059449'
+});
+
+const firebaseRef = window.firebaseApp;
+
 const {Card, List} = mui;
 
 class MessageList extends React.Component {
@@ -11,37 +21,37 @@ class MessageList extends React.Component {
         super(props);
 
         this.state = {
-            messages: []
+            messages: {}
         };
 
-        this.firebaseRef = firebase.initializeApp({
-            apiKey: 'AIzaSyCf4wSQwi3kmU1SM7r0BLjzHo2FpXHF5iQ',
-            authDomain: 'react-stack-17023.firebaseapp.com',
-            databaseURL: 'https://react-stack-17023.firebaseio.com',
-            storageBucket: 'react-stack-17023.appspot.com',
-            messagingSenderId: '686541059449'
-        });
+        this.database = firebaseRef.database();
 
-        this.database = this.firebaseRef.database();
+        this.database.ref('/messages').on('child_added', (msg)=> {
+            let messageData = msg.val();
+            messageData.key = msg.key;
 
-        this.database.ref('/messages').once('value').then((snapshot)=>{
-            let messages = [];
+            if (this.state.messages[messageData.key]) {
+                return;
+            }
 
-            snapshot.forEach((childSnapshot)=> {
-                let key = childSnapshot.key;
-                let val = childSnapshot.val().message;
-
-                messages.push(val);
-            });
+            this.state.messages[messageData.key] = messageData.message;
 
             this.setState({
-                messages: messages
+                messages: this.state.messages
+            });
+        });
+
+        this.database.ref('/messages').on('child_removed', (msg)=> {
+            var key = msg.key;
+            delete this.state.messages[key];
+            this.setState({
+                messages: this.state.messages
             });
         });
     }
 
     render() {
-        var messageNodes = this.state.messages.map((message)=> {
+        var messageNodes = _.values(this.state.messages).map((message)=> {
             return <Message message={message} />;
         });
 

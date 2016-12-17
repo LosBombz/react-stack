@@ -1,6 +1,7 @@
 module.exports = {
     "extends": "standard",
     "installedESLint": true,
+    "parser": "babel-eslint",
     "plugins": [
         "standard",
         "promise",
